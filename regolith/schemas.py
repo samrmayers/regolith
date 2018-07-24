@@ -1420,6 +1420,7 @@ SCHEMAS = {
                 "plenary",
                 "poster",
                 "seminar",
+                "tutorial",
             ],
             "required": True,
             "type": "string",

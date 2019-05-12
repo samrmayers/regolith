@@ -899,6 +899,43 @@ def awards_grants_honors(p):
     aghs.sort(key=(lambda x: x.get("_key", 0.0)), reverse=True)
     return aghs
 
+def awards(p, since=None, before=None,):
+    """Make sorted awards and honors
+
+    Parameters
+    ----------
+    p : dict
+        The person entry
+    since : date.  Optional, default is None
+        The begin date to filter from
+    before : date. Optional, default is None
+        The end date to filter for.  None does not apply this filter
+
+    """
+    if not since: since = date(1500,1,1)
+    a = []
+    for x in p.get("honors", []):
+        if "year" in x:
+            if date(x.get("year"),12,31) > since:
+                d = {"description": latex_safe(x["name"]), "year": x["year"],
+                     "_key": date_to_float(x["year"], x.get("month", 0))}
+                a.append(d)
+        elif "begin_year" in x and "end_year" in x:
+            if date(x.get("begin_year",12,31)) > since:
+                d = {"description": latex_safe(x["name"]),
+                        "year": "{}-{}".format(x["begin_year"], x["end_year"]),
+                        "_key": date_to_float(x["begin_year"], x.get("month", 0)),
+                    }
+                a.append(d)
+        elif "begin_year" in x:
+            if date(x.get("begin_year"),12,31) > since:
+                d = {"description": latex_safe(x["name"]),
+                        "year": "{}".format(x["begin_year"]),
+                        "_key": date_to_float(x["begin_year"], x.get("month", 0)),
+                    }
+                a.append(d)
+    a.sort(key=(lambda x: x.get("_key", 0.0)), reverse=True)
+    return a
 
 def awards(p, since=None, before=None, ):
     """Make sorted awards and honors

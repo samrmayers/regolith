@@ -1271,3 +1271,34 @@ def merge_collections(a, b, target_id):
         chained[k] = ChainDB(adict[k],
                              bdict[v])
     return list(chained.values())
+
+
+def get_dates(thing):
+    '''
+    given a dict like thing, return the items
+
+    Parameters
+    ----------
+    thing: dict
+      the dict that contains the dates
+
+    Returns
+    -------
+       dict containing begin day, begin month, begin year, end day, end month, end year
+    '''
+    dateitems = ['begin_day', 'begin_month', 'begin_year', 'end_day',
+                 'end_month',
+                 'end_year', 'day', 'month', 'year']
+    dates = [thing.get(item) for item in dateitems]
+    dateout = {}
+    [dateout.update({item: date}) for item, date in zip(dateitems, dates) if
+     date]
+    print(dateout)
+    return dateout
+
+
+if __name__ == "__main__":
+    test = get_dates(
+        {'begin_day': 1, 'begin_month': 1, 'begin_year': 2000, 'end_day': 1,
+         'end_month': 1,
+         'end_year': 2001, 'month': 1, 'year': 2003})

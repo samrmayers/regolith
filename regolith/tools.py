@@ -1314,7 +1314,7 @@ def merge_collections(a, b, target_id):
 
 def get_dates(thing):
     '''
-    given a dict like thing, return the items
+    given a dict like thing, return all the date items
 
     Parameters
     ----------
@@ -1332,8 +1332,8 @@ def get_dates(thing):
     dateout = {}
     [dateout.update({item: date}) for item, date in zip(dateitems, dates) if
      date]
-    print(dateout)
     return dateout
+
 def merge_collections(a, b, target_id):
     """
     merge two collections into a single merged collection
